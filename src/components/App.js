@@ -7,7 +7,7 @@ import '../scss/App.scss';
  */
 
 const App = props => {
-    const DEFAULT_TIME = 5;
+    const DEFAULT_TIME = 15;
     const [text, setText] = useState("");
     const [prevText, setPrevText] = useState([]);
     const [timer, setTimer] = useState(DEFAULT_TIME);
@@ -77,9 +77,10 @@ const App = props => {
                 disabled={!running}
             />
             <h4 className="time-remaining">
-                {timer > 0 ? `Time remaining: ${timer}` : "Times up!!!"}
+                {timer > 0 ? `Time remaining: ${timer}` : "Times up! Try again."}
             </h4>
             <button onClick={startGame} disabled={running}>Start</button>
+            {/* If you want to display the previously typed strings as tabbular data then it is semantically correct to use a table */}
             <h2>Word count: {count}</h2>
             <ul>
                 <li><p>[Text]</p><p>[Count]</p></li>
