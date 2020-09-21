@@ -1,4 +1,4 @@
-import React, { useState, useEffect, StrictMode } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../scss/App.scss';
 
 /**
@@ -11,8 +11,9 @@ const App = props => {
     const [text, setText] = useState("");
     const [prevText, setPrevText] = useState([]);
     const [timer, setTimer] = useState(DEFAULT_TIME);
-    const [running, setRunning] = useState(false)
-    const [count, setCount] = useState(0);
+    const [running, setRunning] = useState(false);
+	const [count, setCount] = useState(0);
+	const textAreaRef = useRef(null);
 
     const wordCounter = (textString) => {
         const words = textString.trim().split(" ");
@@ -28,7 +29,10 @@ const App = props => {
     const startGame = () => {
         setRunning(true);
         setTimer(DEFAULT_TIME);
-        setText("");
+		setText("");
+		console.log(textAreaRef);
+		textAreaRef.current.disabled = false;
+		textAreaRef.current.focus();
     }
 
     useEffect(() => {
@@ -74,7 +78,8 @@ const App = props => {
                 value={text} 
                 onChange={handleTextChange} 
                 placeholder="Start typing..." 
-                disabled={!running}
+				disabled={!running}
+				ref={textAreaRef}
             />
             <h4 className="time-remaining">
                 {timer > 0 ? `Time remaining: ${timer}` : "Times up! Try again."}
